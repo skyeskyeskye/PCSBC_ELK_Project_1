@@ -1,5 +1,5 @@
 # UPenn Cyber Security Bootcamp Project 1
-This is the first project I created in the Penn Cyber Security Bootcamp-- An Azure Virtual Network with an ELK Virtual Machine.
+This is the first project I created for the Penn Cyber Security Bootcamp-- An Azure Virtual Network with an ELK Virtual Machine.
 
 ## Topology Description:
 
@@ -92,27 +92,27 @@ We installed the following Beats on these machines:
 
 o	**Filebeat**
 
-     -A lightweight shipper that specifically acts as a log shipper. 
+   A lightweight shipper that specifically acts as a log shipper. 
+    
+   Takes inputs that look in specified locations for log data and then harvests that data and forwards it to be viewed and processed.
 
-     -Takes inputs that look in specified locations for log data and then harvests that data and forwards it to be viewed and processed.
+   Usually, these logs are sent to Logstash where they can go through more advanced processing. Alternatively, they can be shipped to Elasticsearch for indexing. 
 
-     -Usually, these logs are sent to Logstash where they can go through more advanced processing. Alternatively, they can be shipped to Elasticsearch for indexing. 
+   Common inputs for Filebeat include TCP, UDP, HTTP Endpoint, Syslog, among others. (For a more complete list of inputs, please see: https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-options.html .)
 
-     -Common inputs for Filebeat include TCP, UDP, HTTP Endpoint, Syslog, among others. (For a more complete list of inputs, please see: https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-options.html .)
-
-     -We configured to specifically see syslogs, sudo commands, and SSH logins among others.
+   We configured to specifically see syslogs, sudo commands, and SSH logins among others.
 
 o	**Metricbeat**
 
-     -A lightweight shipper that specifically ships host metrics.
+   A lightweight shipper that specifically ships host metrics.
 
-     -The statistics and data are shipped to the specified output, like Logstash or Elasticsearch.
+   The statistics and data are shipped to the specified output, like Logstash or Elasticsearch.
 
-     -These metrics are viewed through pre-built Kibana dashboards and User Interfaces to visualize the log data.
+   These metrics are viewed through pre-built Kibana dashboards and User Interfaces to visualize the log data.
 
-     -There are many metric modules contained in Metricbeat and each module contains one or more metricsets. Some modules include AWS, Azure, Docker, and Linux. (For a more complete list of modules please see: https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-modules.html .)
+   There are many metric modules contained in Metricbeat and each module contains one or more metricsets. Some modules include AWS, Azure, Docker, and Linux. (For a more complete list of modules please see: https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-modules.html .)
 
-     -We configured to specifically ship metrics from Docker including CPU and memory usage.
+   We configured to specifically ship metrics from Docker including CPU and memory usage.
 
 ## Using the Playbook
 
@@ -128,58 +128,23 @@ In order to use the playbook, you will need to have an Ansible control node alre
 
 One way to download it is using the curl command. For example, we can run: 
 
-*curl https://gist.githubusercontent.com/slape/5cc350109583af6cbe577bbcc0710c93/raw/eca603b72586fbe148c11f9c87bf96a63cb25760/Filebeat >> /etc/ansible/filebeat-config.yml 
+`curl https://gist.githubusercontent.com/slape/5cc350109583af6cbe577bbcc0710c93/raw/eca603b72586fbe148c11f9c87bf96a63cb25760/Filebeat >> /etc/ansible/filebeat-config.yml` 
 
 in order to receive the filebeat-config.yml file. 
 
-In this case, we needed to edit the filebeat-config.yml file to include the IP of the ELK Virtual Machine to be accessed through port 9400, 10.1.0.4:9400 under “hosts” (line #1106) and we needed to replace the IP with the ELK machine’s (10.1.0.4)  to work with Kibana through port 5601 (line #1806).
+In this case, we needed to edit the [filebeat-config.yml](https://github.com/skyeskyeskye/PCSBC_ELK_Project_1/blob/main/Ansible/Filebeat/filebeat-config.yml) file to include the IP of the ELK Virtual Machine to be accessed through port 9400, 10.1.0.4:9400 under “hosts” (line #1106) and we needed to replace the IP with the ELK machine’s (10.1.0.4)  to work with Kibana through port 5601 (line #1806).
 ![Filebeat Edit Image 1](https://github.com/skyeskyeskye/PCSBC_ELK_Project_1/blob/main/Images/File-beat-Edit1.jpg?raw=true)
 ![Filebeat Edit Image 2](https://github.com/skyeskyeskye/PCSBC_ELK_Project_1/blob/main/Images/File-beat-Edit2.jpg?raw=true)
 
 After saving the filebeat-config.yml file, we then have to create and save a filebeat playbook file that will install everything that is necessary to connect filebeat to work between our ELK machine and our Web 1 and Web 2 virtual machines. When done properly, this will then propagate logs to the ELK web user interface using Kibana. 
 
 The following is a template that can be used and saved as filebeat-playbook.yml inside the /etc/ansible/ folder of the Ansible container machine:
+[filebeat-playbook.yml](https://github.com/skyeskyeskye/PCSBC_ELK_Project_1/blob/main/Ansible/Filebeat/filebeat-playbook.yml) 
 
----
-- name: Installing and Launch Filebeat
-  hosts: webservers
-  become: yes
-  tasks:
-    #Use command module
-  - name: Download filebeat .deb file
-    command: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.4.0-amd64.deb
-
-    #Use command module
-  - name: Install filebeat .deb
-    command: dpkg -i filebeat-7.4.0-amd64.deb
-
-    #Use copy module
-  - name: Drop in filebeat.yml
-    copy:
-      src: /etc/ansible/files/filebeat-config.yml
-      dest: /etc/filebeat/filebeat.yml
-
-    #Use command module
-  - name: Enable and Configure System Module
-    command: filebeat modules enable system
-
-    #Use command module
-  - name: Setup filebeat
-    command: filebeat setup
-
-    #Use command module
-  - name: Start filebeat service
-    command: service filebeat start
-
-    #Use systemd module
-  - name: Enable service filebeat on boot
-    systemd:
-      name: filebeat
-      enabled: yes
 
 After the filebeat-playbook.yml and the filebeat-config.yml are saved, we then run: 
 	
-  ansible-playbook filebeat-playbook.yml 
+  `ansible-playbook filebeat-playbook.yml` 
 
 And we see the following:
 ![Run Filebeat Playbook Image](https://github.com/skyeskyeskye/PCSBC_ELK_Project_1/blob/main/Images/Run-Filebeat-Playbook.jpg?raw=true)
@@ -188,50 +153,14 @@ Using the external IP of the ELK Virtual machine, we navigate to: http://13.91.7
 
 Through the Kibana dashboard, we will be able to see the syslog data that was configured and enabled and shipped by filebeat to the ELK machine. This log data includes sudo commands, SSH logins, and New users and groups in the Web 1 and Web 2 machines.
 
-Similarly, to configure Metricbeat, we will edit and save the metricbeat config file under setup.kibana to have the host: “10.1.0.4:5601”. (Remember, 10.1.0.4 is the ELK VM private IP and 5601 is the port for Kibana). The host for output. Elasticsearch was also updated with the ELK VM private IP. 
+Similarly, to configure Metricbeat, we will edit and save the [metricbeat config file](https://github.com/skyeskyeskye/PCSBC_ELK_Project_1/blob/main/Ansible/Metricbeat/metricbeat-config.yml) under setup.kibana to have the host: “10.1.0.4:5601”. (Remember, 10.1.0.4 is the ELK VM private IP and 5601 is the port for Kibana).  The host for output.elasticsearch was also updated with the ELK VM private IP. 
 
 We saved the following playbook as metricbeat-playbook.yml in the ansible folder, as well:
-
----
-- name: Install metric beat
-  hosts: webservers
-  become: true
-  tasks:
-    #Use command module
-  - name: Download metricbeat
-    command: curl -L -O #TODO
-
-    #Use command module
-  - name: install metricbeat
-    command: dpkg -i #TODO
-
-    #Use copy module
-  - name: drop in metricbeat config
-    copy:
-      src: /etc/ansible/files/metricbeat-config.yml
-      dest: #TODO
-
-    #Use command module
-  - name: enable and configure docker module for metric beat
-    command: #TODO
-
-    #Use command module
-  - name: setup metric beat
-    command: #TODO
-
-    #Use command module
-  - name: start metric beat
-    command: #TODO
-
-    #Use systemd module
-  - name: enable service metricbeat on boot
-    systemd:
-      name: #TODO
-      enabled: yes
+[metricbeat-playbook.yml](https://github.com/skyeskyeskye/PCSBC_ELK_Project_1/blob/main/Ansible/Metricbeat/metricbeat-playbook.yml)
 
 With both the properly configured metricbeat-config.yml and the metricbeat-playbook.yml files, we then run: 
   
-  ansible-playbook metricbeat-playbook.yml
+  `ansible-playbook metricbeat-playbook.yml`
 
 and should see the following:
 ![Run Metric Playbook Image](https://github.com/skyeskyeskye/PCSBC_ELK_Project_1/blob/main/Images/Run-Metricbeat-Playbook.jpg?raw=true)
