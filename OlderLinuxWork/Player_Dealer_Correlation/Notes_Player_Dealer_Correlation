@@ -1,0 +1,49 @@
+The same player and dealer were at the Roulette table every hour when the losses occured. It is obvious that the player, Mylie Schmidt, and the dealer, Billy Jones, are colluding to scam Lucky Duck.
+
+Data to support:
+
+Who was dealing at the Roulette Table when the Losses occured: 
+
+0310 05:00:00 AM Billy Jones
+0310 08:00:00 AM Billy Jones
+0310 02:00:00 PM Billy Jones
+0310 08:00:00 PM Billy Jones
+0310 11:00:00 PM Billy Jones
+
+0312 05:00:00 AM Billy Jones
+0312 08:00:00 AM Billy Jones
+0312 02:00:00 PM Billy Jones
+0312 08:00:00 PM Billy Jones
+0312 11:00:00 PM Billy Jones
+
+0315 05:00:00 AM Billy Jones
+0315 08:00:00 AM Billy Jones
+0315 02:00:00 PM Billy Jones
+______________________________________________________________
+Player 'Schmidt'
+0310_win_loss_player_data:7 Total Times Player Schmidt Played 
+0312_win_loss_player_data:7 Total Times Player Schmidt Played
+0315_win_loss_player_data:5 Total Times Player Schmidt Played
+
+Total times player Schmidt played over the three days: 19
+
+Mylie Schmidt was a present player during all 13 hours when the losses occured.
+
+_______________________________________________________________
+When the losses occured:	Losses:
+
+0310 05:00:00 AM		-$82,348
+0310 08:00:00 AM		-$97,383
+0310 02:00:00 PM		-$82,348
+0310 08:00:00 PM		-$65,348
+0310 11:00:00 PM		-$88,383
+
+0312 05:00:00 AM		-$182,30
+0312 08:00:00 AM		-$97,383
+0312 02:00:00 PM		-$82,348
+0312 08:00:00 PM		-$65,792
+0312 11:00:00 PM		-$88,229
+
+0315 05:00:00 AM		-$82,844
+0315 08:00:00 AM		-$97,001
+0315 02:00:00 PM		-$182,419
