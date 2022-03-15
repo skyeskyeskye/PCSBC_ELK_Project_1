@@ -4,8 +4,7 @@ This is the first project I created in the Penn Cyber Security Bootcamp-- An Azu
 # Topology Description:
 
 The following is a diagram of our network setup:
-
-"C:\Users\twota\Documents\GitHub\PCSBC_ELK_Project_1\Images\NetworkDiagram.jpg" 
+https://github.com/skyeskyeskye/PCSBC_ELK_Project_1/blob/main/Images/NetworkDiagram.jpg?raw=true
 
 The primary purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D*mn Vulnerable Web Application.
 
@@ -66,10 +65,10 @@ The playbook implements the following tasks:
 •	Enables the docker service on boot such that the docker service starts up automatically when the ELK VM restarts.
 
 When the ansible-playbook is implemented, one should get a response like this:
- "C:\Users\twota\Documents\GitHub\PCSBC_ELK_Project_1\Images\Install-ELK-Playbook.png"
+https://github.com/skyeskyeskye/PCSBC_ELK_Project_1/blob/main/Images/Install-ELK-Playbook.png?raw=true
 
 The following screenshot displays the result of running ‘docker ps’ after successfully configuring the ELK instance:
- "C:\Users\twota\Documents\GitHub\PCSBC_ELK_Project_1\Images\ELK-Running.jpg"
+https://github.com/skyeskyeskye/PCSBC_ELK_Project_1/blob/main/Images/ELK-Running.jpg?raw=true
 
 # Target Machines and Beats:
 
@@ -120,8 +119,8 @@ curl https://gist.githubusercontent.com/slape/5cc350109583af6cbe577bbcc0710c93/r
 in order to receive the filebeat-config.yml file. 
 
 In this case, we needed to edit the filebeat-config.yml file to include the IP of the ELK Virtual Machine to be accessed through port 9400, 10.1.0.4:9400 under “hosts” (line #1106) and we needed to replace the IP with the ELK machine’s (10.1.0.4)  to work with Kibana through port 5601 (line #1806).
- "C:\Users\twota\Documents\GitHub\PCSBC_ELK_Project_1\Images\File-beat-Edit1.jpg"
- "C:\Users\twota\Documents\GitHub\PCSBC_ELK_Project_1\Images\File-beat-Edit2.jpg"
+https://github.com/skyeskyeskye/PCSBC_ELK_Project_1/blob/main/Images/File-beat-Edit1.jpg?raw=true
+https://github.com/skyeskyeskye/PCSBC_ELK_Project_1/blob/main/Images/File-beat-Edit2.jpg?raw=true
 
 After saving the filebeat-config.yml file, we then have to create and save a filebeat playbook file that will install everything that is necessary to connect filebeat to work between our ELK machine and our Web 1 and Web 2 virtual machines. When done properly, this will then propagate logs to the ELK web user interface using Kibana. 
 
@@ -169,7 +168,7 @@ After the filebeat-playbook.yml and the filebeat-config.yml are saved, we then r
   ansible-playbook filebeat-playbook.yml 
 
 And we see the following:
- "C:\Users\twota\Documents\GitHub\PCSBC_ELK_Project_1\Images\Run-Filebeat-Playbook.jpg"
+https://github.com/skyeskyeskye/PCSBC_ELK_Project_1/blob/main/Images/Run-Filebeat-Playbook.jpg?raw=true
 
 Using the external IP of the ELK Virtual machine, we navigate to: http://13.91.70.19:5601/app/kibana.
 
@@ -221,10 +220,10 @@ With both the properly configured metricbeat-config.yml and the metricbeat-playb
   ansible-playbook metricbeat-playbook.yml
 
 and should see the following:
- "C:\Users\twota\Documents\GitHub\PCSBC_ELK_Project_1\Images\Run-Metricbeat-Playbook.jpg"
+https://github.com/skyeskyeskye/PCSBC_ELK_Project_1/blob/main/Images/Run-Metricbeat-Playbook.jpg?raw=true
 
 Once again, we navigate to: http://13.91.70.19:5601/app/kibana. Under Docker Metrics, in the installation page for Metricbeat, we should see that the data was successfully received from the module when the metrics are being shipped from the Web 1 and Web 2 machines to the ELK VM. Like this:
- "C:\Users\twota\Documents\GitHub\PCSBC_ELK_Project_1\Images\Kibana-Metricbeat-Data-Received.jpg"
+https://github.com/skyeskyeskye/PCSBC_ELK_Project_1/blob/main/Images/Kibana-Metricbeat-Data-Received.jpg?raw=true
 
 We can now use Filebeat and Metricbeat to monitor our internal network machines, Web Server 1 and Web Server 2.  This will help us maintain security on our network as we can monitor for any anomalies that might indicate a breach.
 
