@@ -5,7 +5,8 @@ Week 4 Homework Submission File: Linux Systems Administration
 Please edit this file by adding the solution commands on the line below the prompt.
 Save and submit the completed file for your homework submission.
 Step 1: Ensure/Double Check Permissions on Sensitive Files
- 
+![image 1](https://github.com/skyeskyeskye/PCSBC_ELK_Project_1/blob/main/OlderLinuxWork/Week%204%20Linux%20Work/images%20linux%20week%204%20homework/1.png)
+
 1.	Permissions on /etc/shadow should allow only root read and write access.
 o	Command to inspect permissions:
 ls -l ./shadow
