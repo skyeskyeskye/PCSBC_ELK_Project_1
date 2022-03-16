@@ -103,9 +103,9 @@ o	Screenshot of report output: ??It was quite long. So I am going to so here is 
 
   
   Bonus
-1.	Command to install chkrootkit: sudo apt install chkrootkit
-2.	Command to see documentation and instructions: man chkrootkit
-3.	Command to run expert mode: sudo chkrootkit -x
+1.	Command to install chkrootkit: `sudo apt install chkrootkit`
+2.	Command to see documentation and instructions: `man chkrootkit`
+3.	Command to run expert mode: `sudo chkrootkit -x`
 4.	Provide a report from the chrootkit output on what can be done to harden the system.
 o	Screenshot of end of sample output:
  ![Image 10](https://github.com/skyeskyeskye/PCSBC_ELK_Project_1/blob/main/OlderLinuxWork/Week%204%20Linux%20Work/images%20linux%20week%204%20homework/10.png)
