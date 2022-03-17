@@ -153,6 +153,8 @@ Using the external IP of the ELK Virtual machine, we navigate to: http://13.91.7
 
 Through the Kibana dashboard, we will be able to see the syslog data that was configured and enabled and shipped by filebeat to the ELK machine. This log data includes sudo commands, SSH logins, and New users and groups in the Web 1 and Web 2 machines.
 
+![Filebeat data received image](https://github.com/skyeskyeskye/PCSBC_ELK_Project_1/blob/main/Images/Filebeat-Data-Received.jpg)
+
 Similarly, to configure Metricbeat, we will edit and save the [metricbeat config file](https://github.com/skyeskyeskye/PCSBC_ELK_Project_1/blob/main/Ansible/Metricbeat/metricbeat-config.yml) under setup.kibana to have the host: “10.1.0.4:5601”. (Remember, 10.1.0.4 is the ELK VM private IP and 5601 is the port for Kibana).  The host for output.elasticsearch was also updated with the ELK VM private IP. 
 
 We saved the following playbook as metricbeat-playbook.yml in the ansible folder, as well:
