@@ -20,7 +20,7 @@ Problems like environment drift and misconfigurations are potential security ris
 ### o	What tool did you use?
 ### o	What did you use it to do?
 
-In project 1, we used IaC in our Azure Environment. There are many tool providers that provide IaC configurations like AWS Cloud Formations, and Terraform.  In our network we used Docker with Ansible as our management tool. ¬Docker was used to install Ansible, ensuring our provisioning scripts run identically everywhere. Using Docker containers and Ansible helps eliminated variability between configurations. 
+In project 1, we used IaC in our Azure Environment. There are many tool providers that provide IaC configurations like AWS Cloud Formations, and Terraform.  In our network we used Docker with Ansible as our management tool. Docker was used to install Ansible, ensuring our provisioning scripts run identically everywhere. Using Docker containers and Ansible helps eliminated variability between configurations. 
 
 Our ansible container inside our Jump Box was integral in running ansible playbooks. The playbooks run a set of actions on a server. Each action has an Ansible module, each with its own options.  We used pre-configured modules with the necessary options to write playbooks that allowed us to configure our web server machines, our load balancer, and our ELK machine.
 
